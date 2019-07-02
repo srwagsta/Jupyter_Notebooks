@@ -15,6 +15,6 @@ services:
     container_name: jupyter_notebook
     volumes: 
       - jupyter_notebooks:/home/jovyan
-    command: start-notebook.sh --NotebookApp.base_url=/
+    command: conda install --yes --file /home/jovyan/requirements.txt && start-notebook.sh --NotebookApp.base_url=/
     ports:
       - 1194:8888
