@@ -1,40 +1,15 @@
 version: '3'
 
 volumes:
-  local_jenkins_backup: 
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/home/wags/jenkins-data'
-  private_build_data:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/home/wags/Jenkins_server_tools/private_build_data'
   jupyter_notebooks:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/wags/MassStorage/Jupyter_Notebooks'
+      device: './Notebooks'
 
 
 services:
-  jenkins:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    image: docker-compose_jenkins
-    container_name: jenkins_master
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - local_jenkins_backup:/var/jenkins_home
-      - private_build_data:/var/jenkins_build_data
-    ports:
-      - 3389:8080
-
   jupyter-notebooks:
     image: jupyter/all-spark-notebook:latest
     container_name: jupyter_notebook
