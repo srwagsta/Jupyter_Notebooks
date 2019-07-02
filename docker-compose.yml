@@ -1,20 +1,12 @@
 version: '3'
 
-volumes:
-  jupyter_notebooks:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: './Notebooks'
-
-
 services:
   jupyter-notebooks:
     image: jupyter/all-spark-notebook:latest
     container_name: jupyter_notebook
     volumes: 
-      - jupyter_notebooks:/home/jovyan
-    command: conda install --yes --file /home/jovyan/requirements.txt && start-notebook.sh --NotebookApp.base_url=/
+      - ./Notebooks:/home/jovyan
+      - ./SetupScripts:/setupScripts
+    command: /setupScripts/start.sh
     ports:
       - 1194:8888
